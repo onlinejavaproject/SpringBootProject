@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org/"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+</head>
+<body>
+	<section>
+		<div class="content py-5  bg-light">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 offset-md-2">
+						<span class="anchor" id="formUserEdit"></span>
+						<div class="card card-outline-secondary">
+							<div class="card-header">
+								<h3 class="mb-0">New Employee Record</h3>
+							</div>
+							<div class="card-body">
+								<div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
+								<form class="form" th:action="@{/addemp}" method="post"
+									autocomplete="off" th:object="${user}">
+									<div class="form-group row add-margin">
+										<label class="col-lg-3 col-form-label form-control-label">Name</label>
+										<div class="col-lg-9">
+											<input class="form-control"
+												th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
+												type="text" name="name" th:value="${user.name}"
+												autocomplete="off">
+											<p th:each="e : ${#fields.errors('name')}" th:text="${e}"
+												class="invalid-feedback"></p>
+										</div>
+									</div>
+									<div class="form-group row add-margin">
+										<label class="col-lg-3 col-form-label form-control-label">Gender</label>
+										<div class="col-lg-9">
+											<input class="form-check-input" type="radio" name="gender"
+												th:classappend="${#fields.hasErrors('gender')?'is-invalid':''}"
+												value="Male" th:field="*{gender}" th:checked="true">
+											<label class="custom-control-label">Male</label> <input
+												class="form-check-input" type="radio" name="gender"
+												th:classappend="${#fields.hasErrors('gender')?'is-invalid':''}"
+												value="Female" th:field="*{gender}"> <label
+												class="custom-control-label">Female</label>
+										</div>
+									</div>
+									<div class="form-group row add-margin">
+										<label class="col-lg-3 col-form-label form-control-label">Email</label>
+										<div class="col-lg-9">
+											<input type="text" id="email" name="email"
+												class="form-control"
+												th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+												th:field="*{email}" autocomplete="off"
+												placeholder="should be unique">
+											<p th:each="e : ${#fields.errors('email')}" th:text="${e}"
+												class="invalid-feedback"></p>
+										</div>
+									</div>
+									<div class="form-group row add-margin">
+										<label class="col-lg-3 col-form-label form-control-label">Password</label>
+										<div class="col-lg-9">
+											<input class="form-control"
+												th:classappend="${#fields.hasErrors('password')?'is-invalid':''}"
+												type="text" name="password" th:value="${user.password}">
+											<p th:each="e : ${#fields.errors('password')}" th:text="${e}"
+												class="invalid-feedback"></p>
+										</div>
+									</div>
+									<div class="form-group row add-margin">
+										<label class="col-lg-3 col-form-label form-control-label">Contact</label>
+										<div class="col-lg-9">
+											<input class="form-control"
+												th:classappend="${#fields.hasErrors('contact')?'is-invalid':''}"
+												type="text" name="contact" th:value="${user.contact}"
+												autocomplete="off">
+											<p th:each="e : ${#fields.errors('contact')}" th:text="${e}"
+												class="invalid-feedback"></p>
+										</div>
+									</div>
+									<div class="form-group row add-margin">
+										<label class="col-lg-3 col-form-label form-control-label">City</label>
+										<div class="col-lg-9">
+											<select class="form-control" th:field="*{city}">
+												<option th:each="e : ${user.cities}" th:value="${e}" th:text="${e}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group add-margin text-center">
+										<button type="submit" class="btn btn-primary">Save</button>
+										<a th:href="@{/dashboard}" class="btn btn-primary">Cancel</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

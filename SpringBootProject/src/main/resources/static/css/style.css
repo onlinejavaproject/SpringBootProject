@@ -1,0 +1,19 @@
+body{
+	background: #e2e2e2!important;
+}
+
+.banner {
+	width: 100%;
+	height: 93vh;
+	background:url(../images/image2.png);
+}
+
+.form-padding {
+	padding: 50px;
+}
+.add-margin {
+	margin-bottom: 8px;
+}
+#logout-link {
+	color: red;
+}

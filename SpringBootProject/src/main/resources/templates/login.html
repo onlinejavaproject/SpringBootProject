@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+</head>
+<body>
+	<section>
+		<div class="col-md-6 offset-md-3 form-padding">
+			<h1 class="text-center">Login here</h1>
+
+			<div th:if="${login_error}" th:text="${login_error}" class="alert alert-danger"></div>
+
+			<form th:action="@{/userlogin}" method="post" th:object="${user}">
+				<div class="mb-3">
+					<label class="form-label">Email</label> <input type="text"
+						id="email" name="email" class="form-control"
+						th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+						autocomplete="off" th:value="${user.email}">
+					<p th:each="e : ${#fields.errors('email')}" th:text="${e}"
+						class="invalid-feedback"></p>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Password</label> <input type="password"
+						id="password" name="password" class="form-control"
+						th:classappend="${#fields.hasErrors('password')?'is-invalid':''}"
+						th:value="${user.password}">
+					<p th:each="e : ${#fields.errors('password')}" th:text="${e}"
+						class="invalid-feedback"></p>
+				</div>
+				<div class="mb-3">
+					<a href="/register">New? Register here</a>
+				</div>
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary">Login</button>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

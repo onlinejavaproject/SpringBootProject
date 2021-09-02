@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org/"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+</head>
+<body>
+	<section>
+		<a type="button" class="btn btn-success text-center" th:href="@{/addemp}">Add Employee</a>
+		<div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
+		<div class="card ml-4">
+			<div class="card-body">
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">EMP ID</th>
+							<th scope="col">NAME</th>
+							<th scope="col">GENDER</th>
+							<th scope="col">EMAIL</th>
+							<th scope="col">PASSWORD</th>
+							<th scope="col">CONTACT</th>
+							<th scope="col">CITY</th>
+							<th scope="col">ACTION</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="c : ${userList}">
+							<th scope="row" th:text="${c.id}"></th>
+							<td th:text="${c.name}"></td>
+							<td th:text="${c.gender}"></td>
+							<td th:text="${c.email}"></td>
+							<td th:text="${c.password}"></td>
+							<td th:text="${c.contact}"></td>
+							<td th:text="${c.city}"></td>
+							<td>
+								<form th:action="@{'/profile/'+${c.id}}" method="post">
+									<button type="submit" class="btn btn-primary btn-sm">Edit</button>
+								</form>
+								<form th:action="@{'/delete/'+${c.id}}" method="post">
+									<button type="submit" class="btn btn-danger btn-sm">Delete</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org/"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+</head>
+<body>
+	<section>
+		<div class="col-md-6 offset-md-3 form-padding">
+			<h1 class="text-center">Register here</h1>
+			<div th:if="${success}" th:text="${success}"
+				class="alert alert-success"></div>
+			<div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
+			<form th:action="@{/register}" method="post" th:object="${user}">
+				<div class="mb-3">
+					<label class="form-label">Name</label> <input type="text"
+						class="form-control"
+						th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
+						id="name" name="name" th:field="*{name}" autocomplete="off">
+					<p th:each="e : ${#fields.errors('name')}" th:text="${e}"
+						class="invalid-feedback"></p>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Email</label> <input type="text"
+						id="email" name="email" class="form-control"
+						th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+						th:field="*{email}" autocomplete="off"
+						placeholder="should be unique">
+					<p th:each="e : ${#fields.errors('email')}" th:text="${e}"
+						class="invalid-feedback"></p>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Password</label> <input type="password"
+						class="form-control"
+						th:classappend="${#fields.hasErrors('password')?'is-invalid':''}"
+						id="password" name="password" th:value="${user.password}">
+					<p th:each="e : ${#fields.errors('password')}" th:text="${e}"
+						class="invalid-feedback"></p>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Contact</label> <input type="text"
+						class="form-control"
+						th:classappend="${#fields.hasErrors('contact')?'is-invalid':''}"
+						id="contact" name="contact" th:field="*{contact}"
+						autocomplete="off">
+					<p th:each="e : ${#fields.errors('contact')}" th:text="${e}"
+						class="invalid-feedback"></p>
+				</div>
+				<div>
+					<label class="form-check-label">Gender</label>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="gender"
+							th:classappend="${#fields.hasErrors('gender')?'is-invalid':''}"
+							value="Male" th:field="*{gender}" th:checked="true"> <label
+							class="custom-control-label">Male</label>
+					</div>
+					<div class="form-check form-check-inline mb-3">
+						<input class="form-check-input" type="radio" name="gender"
+							th:classappend="${#fields.hasErrors('gender')?'is-invalid':''}"
+							value="Female" th:field="*{gender}"> <label
+							class="custom-control-label">Female</label>
+					</div>
+				</div>
+				<div class="mb-3 form-group">
+					<label for="location">Select City</label> 
+					<select class="form-control" th:field="*{city}">
+						<option th:each="e : ${user.cities}" th:value="${e}" th:text="${e}"></option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<a href="/userlogin">Login here</a>
+				</div>
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="reset" class="btn btn-primary">Reset</button>
+				</div>
+			</form>
+		</div>
+	</section>
+</body>
+</html>
